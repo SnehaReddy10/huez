@@ -28,7 +28,7 @@ export const SignInController = async (req: Request, res: Response) => {
       return;
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password || '');
     if (!isPasswordValid) {
       res
         .status(StatusCodes.Unauthorized)

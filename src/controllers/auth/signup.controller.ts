@@ -4,6 +4,7 @@ import { User } from '../../models/User.model';
 import jwt from 'jsonwebtoken';
 import { ErrorMessages } from '../../constants/error-messages';
 import { StatusCodes } from '../../constants/status-codes';
+import { AuthProvider } from '../../constants/enums/auth-provider';
 
 export const SignupController = async (req: Request, res: Response) => {
   try {
@@ -27,7 +28,14 @@ export const SignupController = async (req: Request, res: Response) => {
       return;
     }
 
-    const user = new User({ name, username, email, password, role });
+    const user = new User({
+      name,
+      username,
+      email,
+      password,
+      role,
+      authProvider: AuthProvider.EMAIL,
+    });
     await user.save();
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || '', {

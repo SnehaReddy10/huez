@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-import { Role } from '../constants/role';
+import { Role } from '../constants/enums/role';
+import { AuthProvider } from '../constants/enums/auth-provider';
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -19,7 +20,6 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
   },
   createdAt: {
     type: Date,
@@ -30,11 +30,24 @@ const userSchema = new mongoose.Schema({
     enum: [Role.ADMIN, Role.USER, Role.MERCHANT],
     default: Role.USER,
   },
+  authProvider: {
+    type: String,
+    enum: [AuthProvider.EMAIL, AuthProvider.GOOGLE],
+    required: true,
+  },
+  googleId: {
+    type: String,
+  },
+  avatar: {
+    type: String,
+  },
 });
 
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
-  this.password = await bcrypt.hash(this.password, 10);
+  if (this.password) {
+    this.password = await bcrypt.hash(this.password, 10);
+  }
   next();
 });
 
