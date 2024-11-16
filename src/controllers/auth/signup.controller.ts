@@ -17,7 +17,7 @@ export const SignupController = async (req: Request, res: Response) => {
       return;
     }
 
-    const { name, username, email, password } = data;
+    const { name, username, email, password, role } = data;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -27,7 +27,7 @@ export const SignupController = async (req: Request, res: Response) => {
       return;
     }
 
-    const user = new User({ name, username, email, password });
+    const user = new User({ name, username, email, password, role });
     await user.save();
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || '', {

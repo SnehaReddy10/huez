@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import { Role } from '../constants/role';
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -23,6 +24,11 @@ const userSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+  role: {
+    type: String,
+    enum: [Role.ADMIN, Role.USER, Role.MERCHANT],
+    default: Role.USER,
   },
 });
 

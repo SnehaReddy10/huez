@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { ErrorMessages } from '../constants/error-messages';
+import { Role } from '../constants/role';
 
 export const signupSchema = z.object({
   name: z
@@ -12,4 +13,5 @@ export const signupSchema = z.object({
     .string()
     .min(6, ErrorMessages.User.PasswordIsShort)
     .max(100, ErrorMessages.User.PasswordIsLong),
+  role: z.enum([Role.ADMIN, Role.USER, Role.MERCHANT]).optional(),
 });
