@@ -7,6 +7,9 @@ export const ErrorMessages = {
     PasswordIsLong: 'Password is too long',
     EmailAlreadyInUse: 'Email already in use',
     UserCreatedSuccessfully: 'User created successfully',
+    UserNotFound: 'User not found. Please check your credentials.',
+    InvalidCredentials: 'Invalid email or password.',
+    SignInSuccessful: 'Sign-in successful.',
   },
   Server: {
     InternalServerError: 'Internal Server error',
