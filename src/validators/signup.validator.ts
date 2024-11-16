@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { ErrorMessages } from '../constants/error-messages';
-import { Role } from '../constants/role';
+import { Role } from '../constants/enums/role';
 
 export const signupSchema = z.object({
   name: z
