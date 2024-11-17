@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { signinSchema } from '../../validators/signin.validator';
-import { User } from '../../models/User.model';
+import { User } from '../../models/user.model';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { ErrorMessages } from '../../constants/error-messages';
@@ -40,7 +40,7 @@ export const SignInController = async (req: Request, res: Response) => {
       expiresIn: '1d',
     });
 
-    res.status(StatusCodes.Success).json({
+    res.status(StatusCodes.OK).json({
       message: ErrorMessages.User.SignInSuccessful,
       token,
       user: {

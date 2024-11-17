@@ -41,6 +41,13 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
   },
+  restaurants: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Restaurant',
+      required: true,
+    },
+  ],
 });
 
 userSchema.pre('save', async function (next) {
