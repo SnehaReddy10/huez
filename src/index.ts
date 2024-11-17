@@ -8,9 +8,11 @@ import express from 'express';
 import cors from 'cors';
 import { authRouter } from './routes/auth.router';
 import { userRouter } from './routes/user.router';
-import { productRouter } from './routes/product.router';
 import { session } from './config/session';
 import passport from './config/passport';
+import { restaurantRouter } from './routes/restaurant.route';
+import { cartRouter } from './routes/cart.router';
+import { authMiddleware } from './middlewares/auth.middleware';
 
 const app = express();
 
@@ -21,8 +23,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/api/v1/auth', authRouter);
+
+app.use(authMiddleware);
 app.use('/api/v1/user', userRouter);
-app.use('/api/v1/product', productRouter);
+
+app.use('/api/v1/restaurant', restaurantRouter);
+app.use('/api/v1/cart', cartRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`Listening to port ${process.env.PORT}`);
